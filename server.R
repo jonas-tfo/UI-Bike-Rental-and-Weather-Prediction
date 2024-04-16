@@ -1,0 +1,1 @@
+# this file contains the components required for the server end of the UI, which contains a world map, with several marked cities, a dropdown menu to select cities, and several graphics related to the weather for a given city, when said city is selected
