@@ -1,0 +1,113 @@
+# 2024-Mar-12 15:22:18 UTC // R version 4.3.2
+
+# loads required packages
+
+install.packages("rvest")
+install.packages("httr")
+library(rvest)
+library(httr)
+
+# creates empty vectors to hold data temporarily
+
+city <- c()
+weather <- c()
+visibility <- c()
+temp <- c()
+temp_min <- c()
+temp_max <- c()
+pressure <- c()
+humidity <- c()
+wind_speed <- c()
+wind_deg <- c()
+forecast_datetime <- c()
+season <- c()
+
+# sets the data type for each of the variables
+
+city <- character()
+weather <- character()
+visibility <- numeric()
+temp <- numeric()
+temp_min <- numeric()
+temp_max <- numeric()
+pressure <- numeric()
+humidity <- numeric()
+wind_speed <- numeric()
+wind_deg <- numeric()
+forecast_datetime <- character()
+season <- character()
+
+#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# creates a function "get_weather_forecaset_by_cities()", with two nested for-loops, which takes singular strings from a list of strings as input 
+
+get_weather_forecaset_by_cities <- function(city_names){
+  forecast_df <- data.frame() # creates temporary empty dataframe
+  
+      for (city_name in city_names){
+
+        forecast_url <- 'https://api.openweathermap.org/data/2.5/forecast'                         # base URL for the Forecast API
+        forecast_query <- list(q = city_name, appid = "insert API code here", units="metric")      # query parameters, loops for each input of variable city_name; !!!NOTE: API code is individual to each user; input personal code as string after "appid ="
+        json_list <- GET(forecast_url, query = forecast_query)                                     # HTTP GET call for the given city_name
+        json_list <- content(json_list, as = "parsed")         
+        json_list <- json_list$list                                                                #  converts JSON result (original JSON result is a list of lists)
+    
+    # Loops the json result, retrieves the listed variables for each JSON result of each city_name
+    
+    for(result in json_list) {
+      
+      city <- c(city, city_name)
+      weather <- c(weather, json_list[[1]]$weather[[1]]$main)
+      visibility <- c(visibility, json_list[[1]]$visibility)
+      temp <- c(temp, json_list[[1]]$main$temp)
+      temp_min <- c(temp_min, json_list[[1]]$main$temp_min)
+      temp_max <- c(temp_max, json_list[[1]]$main$temp_max)
+      pressure <- c(pressure, json_list[[1]]$main$pressure)
+      humidity <- c(humidity, json_list[[1]]$main$humidity)
+      wind_speed <- c(wind_speed, json_list[[1]]$wind$speed)
+      wind_deg <- c(wind_deg, json_list[[1]]$wind$deg)
+      season <- c(season, "Winter")
+      
+    }
+    
+    # Add the R Lists into a data frame
+
+    forecast_df <- data.frame(city=city,
+                              weather=weather,
+                              visibility=visibility, 
+                              temp=temp, 
+                              temp_min=temp_min, 
+                              temp_max=temp_max, 
+                              pressure=pressure, 
+                              humidity=humidity, 
+                              wind_speed=wind_speed, 
+                              wind_deg=wind_deg,
+                              season=season)
+    
+  }
+
+  return(forecast_df)          # returns data frame
+  
+}
+
+cities <- c("Seoul", "Washington, D.C.", "Paris", "Suzhou")          # vector of strings to be inputted as city_name in the function get_weather_forecaset_by_cities()
+cities_weather_df <- get_weather_forecaset_by_cities(cities)
+cities_weather_df
+
+# writes cities_weather_df to `cities_weather_forecast.csv`
+write.csv(cities_weather_df, "cities_weather_forecast.csv", row.names=FALSE)
+
+#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Additional downloads of several datasets
+
+# general city information such as name and locations
+url <- "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-RP0321EN-SkillsNetwork/labs/datasets/raw_worldcities.csv"
+download.file(url, destfile = "raw_worldcities.csv")
+
+# specific hourly Seoul bike sharing demand dataset
+url <- "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-RP0321EN-SkillsNetwork/labs/datasets/raw_seoul_bike_sharing.csv"
+download.file(url, destfile = "raw_seoul_bike_sharing.csv")
+
+
+
