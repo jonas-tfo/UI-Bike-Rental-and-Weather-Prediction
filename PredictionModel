@@ -1,5 +1,5 @@
 # this file contains the model used in order to predict the weather in the selected cities. This model is implemented in the server.R file, in order to create the user interface. 
-# NOTE: In order for the code run successfully, the api_key must be replaced with the users api key (available for free at https://home.openweathermap.org/)and the file "model.csv" must be existant in the users directory
+# NOTE: In order for the code run successfully, the api_key must be replaced with the users api key (available after login at https://home.openweathermap.org/)and the file "model.csv" must be existant in the users directory
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 require(tidyverse)
