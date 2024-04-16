@@ -1,4 +1,5 @@
 # 2024-Mar-12 15:22:18 UTC // R version 4.3.2
+# NOTE: "insert API code here" (l. 51) must be replaced with that of the user (available after login at https://home.openweathermap.org/)
 
 # loads required packages
 
