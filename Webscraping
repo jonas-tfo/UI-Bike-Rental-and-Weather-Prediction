@@ -110,5 +110,6 @@ download.file(url, destfile = "raw_worldcities.csv")
 url <- "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-RP0321EN-SkillsNetwork/labs/datasets/raw_seoul_bike_sharing.csv"
 download.file(url, destfile = "raw_seoul_bike_sharing.csv")
 
-
+url <- "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-RP0321EN-SkillsNetwork/labs/datasets/seoul_bike_sharing.csv"  
+download.file(url, destfile = "seoul_bike_sharing") 
 
