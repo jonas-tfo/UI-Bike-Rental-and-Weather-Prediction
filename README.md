@@ -11,4 +11,4 @@ The general outline of this project was:
 5. Build a R Shiny dashboard app with a user friendly UI
 
    
-For more details on the methodology etc. of the project, see the provided presentation "CapstoneProjectFinalPresentation.pdf".
+For more details on the methodology etc. of the project, see the provided presentation "CapstoneProjectFinalPresentation.pptx".
